@@ -1,0 +1,8 @@
+[package]
+org = "sameeragunarathne"
+name = "data_sync_source_connect_api"
+version = "0.1.0"
+distribution = "2201.3.1"
+
+[build-options]
+observabilityIncluded = true
