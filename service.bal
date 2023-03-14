@@ -10,10 +10,8 @@ configurable string hl7ServerIP = "20.163.213.27";
 configurable int hl7ServerPort = 9988;
 
 configurable string v2ToFHIRServiceUrl = "http://localhost:9090";
-configurable string raapidAIServiceUrl = "http://localhost:9092";
 
 final http:Client v2ToFHIRServiceAPI = check new (v2ToFHIRServiceUrl);
-final http:Client raapidAIAPI = check new (raapidAIServiceUrl);
 
 # A service representing a network-accessible API
 # bound to port `9090`.
