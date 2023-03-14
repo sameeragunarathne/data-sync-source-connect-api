@@ -33,6 +33,9 @@ service / on new http:Listener(9091) {
         log:printInfo("Resource type: " + resourceType + ", Resource Id: " + id);
         // The following example is using FHIR client to connect to the Epic FHIR server to read an Encounter resource.
         fhirr4:FHIRResponse|fhirr4:FHIRError fhirResponse = fhirConnectorObj->getById(resourceType, id);
+        if fhirResponse is error {
+            log:printError("Error occurred while reading the resource", fhirResponse);
+        }
         return handleResponse(fhirResponse);
     }
 
