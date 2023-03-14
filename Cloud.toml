@@ -1,0 +1,3 @@
+[[container.copy.files]]
+sourceFile="./privatekey.pem"
+target="/home/ballerina/privatekey.pem"
