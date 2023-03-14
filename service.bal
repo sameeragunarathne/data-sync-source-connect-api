@@ -4,7 +4,7 @@ import wso2healthcare/healthcare.clients.fhirr4;
 
 configurable string base = "https://fhir.epic.com/interconnect-fhir-oauth/api/FHIR/R4";
 configurable string tokenUrl = "https://fhir.epic.com/interconnect-fhir-oauth/oauth2/token";
-configurable string clientId = "801f42e8-485c-4afb-b34f-9a0ca0d9ae2e";
+configurable string clientId = "07fe5f43-527b-4197-a2f7-c176bc22327f";
 
 // FHIR client configuration for Epic.
 fhirr4:FHIRConnectorConfig epicConfig = {
@@ -41,7 +41,7 @@ service / on new http:Listener(9091) {
 
     resource function post push(http:RequestContext ctx, http:Request request) returns json|error {
         json payload = check request.getJsonPayload();
-        fhirr4:FHIRResponse|fhirr4:FHIRError createdEntity = fhirConnectorObj->update(payload);
+        fhirr4:FHIRResponse|fhirr4:FHIRError createdEntity = fhirConnectorObj->create(payload);
         return handleResponse(createdEntity);
     }
 }
