@@ -43,16 +43,20 @@ service / on new http:Listener(9091) {
                 qrd8: [{xcn1: id}]
             }
         };
+        log:printInfo(qry_a19.toJsonString());
 
         //encoding query message to HL7 wire format.
         byte[] encodedQRYA19 = check hl7Encoder.encode(hl7v23:VERSION, qry_a19);
 
         do {
             //sending query message to HL7 server
-            hl7:HL7Client hl7Client = check new (hl7ServerIP, hl7ServerPort);
-            hl7:Message sendMessage = check hl7Client.sendMessage(encodedQRYA19);
-            json jsonObj = sendMessage.toJson();
-            return v2ToFHIRServiceAPI->post("/v2tofhir/transform", jsonObj);
+            HL7Client hl7Client = check new (hl7ServerIP, hl7ServerPort);
+            byte[] responseMessage = check hl7Client.sendMessage(encodedQRYA19);
+            // json jsonObj = responseMessage.toJson();
+            // byte[] encodedResponseMessage = check hl7Encoder.encode(hl7v23:VERSION, responseMessage);
+            string responseMessageStr = check string:fromBytes(responseMessage);
+            log:printInfo(responseMessageStr);
+            return v2ToFHIRServiceAPI->post("/v2tofhir/transform", responseMessageStr.substring(1, responseMessageStr.length() - 3));
 
         } on fail var e {
             log:printError(e.message());
